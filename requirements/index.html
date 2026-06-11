@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DVS Technosoft – ERP Requirements</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --border: #e4e7ef;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --accent-border: #bfdbfe;
+    --text: #1e293b;
+    --muted: #64748b;
+    --green: #059669;
+    --green-light: #ecfdf5;
+    --green-border: #a7f3d0;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --amber-border: #fde68a;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --red-border: #fecaca;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+    --purple-border: #ddd6fe;
+    --slate: #475569;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .container { max-width: 920px; margin: 0 auto; }
+
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .header h1 span { color: var(--accent); }
+
+  .header p {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .meeting-badge {
+    background: var(--amber-light);
+    border: 1px solid var(--amber-border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .meeting-badge .date {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--amber);
+  }
+
+  .meeting-badge .label {
+    font-size: 11px;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .goals-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .goal-chip {
+    font-size: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    color: var(--slate);
+    font-weight: 500;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .section:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .section-header:hover { background: var(--bg); }
+
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1;
+    color: var(--text);
+  }
+
+  .section-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  .q-count {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 13px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .section.open .chevron { transform: rotate(180deg); }
+
+  .section-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .section.open .section-body { display: block; }
+
+  /* ── QUESTION GROUPS ── */
+  .q-group {
+    margin-bottom: 20px;
+  }
+
+  .q-group:last-child { margin-bottom: 0; }
+
+  .q-group-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--bg);
+    align-items: flex-start;
+  }
+
+  .q-item:last-child { border-bottom: none; }
+
+  .q-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .q-text {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .q-text strong { color: var(--text); font-weight: 600; }
+
+  .q-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .q-option {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--bg);
+    font-weight: 500;
+  }
+
+  /* ── PRIORITY TABLE ── */
+  .priority-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .priority-table th {
+    background: var(--bg);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .priority-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate);
+    vertical-align: middle;
+  }
+
+  .priority-table tr:last-child td { border-bottom: none; }
+
+  .priority-table tr:hover td { background: var(--bg); }
+
+  .module-name { font-weight: 600; color: var(--text); }
+
+  .priority-cell {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .p-box {
+    width: 60px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .p-box:hover { border-color: var(--accent); color: var(--accent); }
+  .p-box.ph1 { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .p-box.later { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
+  .p-box.no { background: var(--red-light); border-color: var(--red); color: var(--red); }
+
+  .notes-field {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── ARCH CARDS ── */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .arch-grid { grid-template-columns: 1fr; }
+    .top-row { flex-direction: column; }
+    .meeting-badge { text-align: left; }
+  }
+
+  .arch-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .arch-card h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .arch-card p {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  .arch-card .value {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── DECISION BOX ── */
+  .decision-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .decision-list { grid-template-columns: 1fr; }
+    .priority-table { font-size: 12px; }
+    .p-box { width: 48px; }
+  }
+
+  .decision-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .decision-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .decision-text {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* ── CONTEXT BANNER ── */
+  .context-banner {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .context-banner strong { font-weight: 700; }
+
+  /* ── PHASE DIVIDER ── */
+  .phase-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 14px;
+  }
+
+  .phase-dot-d {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .phase-label-d {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .phase-line-d {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* colour tokens */
+  .c-blue   { background: var(--accent-light); }
+  .c-green  { background: var(--green-light);  }
+  .c-amber  { background: var(--amber-light);  }
+  .c-red    { background: var(--red-light);    }
+  .c-purple { background: var(--purple-light); }
+
+  .dot-blue   { background: var(--accent); }
+  .dot-green  { background: var(--green); }
+  .dot-amber  { background: var(--amber); }
+  .dot-red    { background: var(--red); }
+  .dot-purple { background: var(--purple); }
+
+  .cnt-blue   { background: var(--accent-light);  color: var(--accent);  border: 1px solid var(--accent-border); }
+  .cnt-green  { background: var(--green-light);   color: var(--green);   border: 1px solid var(--green-border); }
+  .cnt-amber  { background: var(--amber-light);   color: var(--amber);   border: 1px solid var(--amber-border); }
+  .cnt-red    { background: var(--red-light);     color: var(--red);     border: 1px solid var(--red-border); }
+  .cnt-purple { background: var(--purple-light);  color: var(--purple);  border: 1px solid var(--purple-border); }
+
+  .qdot-blue   { background: var(--accent); }
+  .qdot-green  { background: var(--green); }
+  .qdot-amber  { background: var(--amber); }
+  .qdot-red    { background: var(--red); }
+  .qdot-purple { background: var(--purple); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 50px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer p { font-size: 12px; color: var(--muted); }
+
+  .footer .note {
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="top-row">
+      <div>
+        <div class="tag">ERP Discovery — Requirements Document</div>
+        <h1>DVS Technosoft<br><span>Phase 1 Requirements</span></h1>
+        <p>This document covers everything we need to gather, decide, and confirm before implementation begins. Work through each section across the weekly discovery sessions.</p>
+      </div>
+      <div class="meeting-badge">
+        <div class="date">2 June 2026</div>
+        <div class="label">First Meeting</div>
+      </div>
+    </div>
+    <div class="goals-row">
+      <div class="goal-chip">🏢 50–55 Employees</div>
+      <div class="goal-chip">🇮🇳 India Entity First</div>
+      <div class="goal-chip">☁️ AWS Hosted</div>
+      <div class="goal-chip">📱 Mobile Attendance</div>
+      <div class="goal-chip">🗂 Document Management</div>
+      <div class="goal-chip">⚙️ ERPNext + Frappe HRMS</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: COMPANY CONTEXT -->
+  <div class="phase-divider">
+    <div class="phase-dot-d dot-blue"></div>
+    <div class="phase-label-d">Section 1 — Company & User Context</div>
+    <div class="phase-line-d"></div>
+  </div>
+
+  <div class="section open" id="s1">
+    <div class="section-header" onclick="toggle('s1')">
+      <div class="section-icon c-blue">🏢</div>
+      <div>
+        <div class="section-title">Company Basics & Team Structure</div>
+        <div class="section-sub">Headcount, departments, current tools, and biggest pain points</div>
+      </div>
+      <div class="q-count cnt-blue">10 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Headcount & Growth</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Current total employees — office + field combined?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Expected headcount growth in next 12–24 months?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Rough breakdown — how many are office-based vs field/site engineers?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Departments Using ERP</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Which departments should have access to the ERP?
+            <div class="q-options">
+              <span class="q-option">Management</span>
+              <span class="q-option">HR / Admin</span>
+              <span class="q-option">Accounts / Finance</span>
+              <span class="q-option">Sales / BD</span>
+              <span class="q-option">Purchase</span>
+              <span class="q-option">Inventory / Stores</span>
+              <span class="q-option">Projects</span>
+              <span class="q-option">Engineering / Design</span>
+              <span class="q-option">Manufacturing / Panel Shop</span>
+              <span class="q-option">Service / Commissioning</span>
+              <span class="q-option">Field Support</span>
+              <span class="q-option">IT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Current Tools & Pain Points</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">What tools are currently used day to day?
+            <div class="q-options">
+              <span class="q-option">Excel / Sheets</span>
+              <span class="q-option">Tally</span>
+              <span class="q-option">WhatsApp</span>
+              <span class="q-option">Email</span>
+              <span class="q-option">Paper registers</span>
+              <span class="q-option">Biometric machine</span>
+              <span class="q-option">Project tools</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text"><strong>Biggest pain points</strong> — what takes the most time or causes the most confusion currently?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Which reports are hardest to generate today?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Which workflows currently depend on WhatsApp or manual follow-up?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: HR & ATTENDANCE -->
+  <div class="section" id="s2">
+    <div class="section-header" onclick="toggle('s2')">
+      <div class="section-icon c-green">👥</div>
+      <div>
+        <div class="section-title">HR, Attendance & Leave</div>
+        <div class="section-sub">Employee records, leave policies, office attendance, payroll connection</div>
+      </div>
+      <div class="q-count cnt-green">14 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Employee Records</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What employee data needs to be stored?
+            <div class="q-options">
+              <span class="q-option">Name & Code</span>
+              <span class="q-option">Department & Designation</span>
+              <span class="q-option">Joining Date</span>
+              <span class="q-option">Reporting Manager</span>
+              <span class="q-option">Contact Details</span>
+              <span class="q-option">Documents</span>
+              <span class="q-option">Salary Details</span>
+              <span class="q-option">Emergency Contact</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Who can create, update, or deactivate employee records — HR only or managers too?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need role-based access per department — so accounts can't see engineering data?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Attendance</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">How is office attendance captured today?
+            <div class="q-options">
+              <span class="q-option">Manual register</span>
+              <span class="q-option">Biometric machine</span>
+              <span class="q-option">Web app</span>
+              <span class="q-option">Nothing formal</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need shift management — multiple shift timings for different teams?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need late mark, half-day, overtime, or comp-off rules?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Should attendance connect to payroll automatically?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Leave Policy</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What leave types are given — casual, sick, earned, unpaid?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">How many days of each leave type per year?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Can unused leaves be carried forward to the next year?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Who approves leave — direct manager or HR?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Which holiday calendar do they follow — central government, state, or their own list?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What are the weekly offs — Saturday half day, full Saturday off, or only Sunday?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: GPS ATTENDANCE -->
+  <div class="section" id="s3">
+    <div class="section-header" onclick="toggle('s3')">
+      <div class="section-icon c-amber">📍</div>
+      <div>
+        <div class="section-title">Field Engineer GPS Attendance</div>
+        <div class="section-sub">Mobile check-in, location capture, map view — not live tracking</div>
+      </div>
+      <div class="q-count cnt-amber">16 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="context-banner">
+        <strong>Important clarification:</strong> This is not live GPS tracking. The system captures the location only at the moment of clock-in or clock-out. Managers can view where the engineer was when they punched, plotted on a map.
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">App & Platform</div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should engineers clock in from which platform?
+            <div class="q-options">
+              <span class="q-option">Android app</span>
+              <span class="q-option">iOS app</span>
+              <span class="q-option">Mobile browser / PWA</span>
+              <span class="q-option">All of the above</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Is a native app on Play Store / App Store required, or is a mobile-friendly web app acceptable for Phase 1?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Do engineers need offline mode if there is no network at site?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">What Gets Captured</div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">When should GPS be captured?
+            <div class="q-options">
+              <span class="q-option">Clock-in only</span>
+              <span class="q-option">Clock-out only</span>
+              <span class="q-option">Both</span>
+              <span class="q-option">Every site visit</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">What information should be logged at each check-in?
+            <div class="q-options">
+              <span class="q-option">Latitude / longitude</span>
+              <span class="q-option">Address from coordinates</span>
+              <span class="q-option">Time and date</span>
+              <span class="q-option">Customer / site name</span>
+              <span class="q-option">Project reference</span>
+              <span class="q-option">Selfie / photo proof</span>
+              <span class="q-option">Remarks</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should managers be able to see the punch location plotted on a map?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should HR be able to export field attendance with GPS coordinates?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Geofencing & Exceptions</div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should attendance only be allowed within a radius of the client/project site?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">If geofencing — what radius is acceptable?
+            <div class="q-options">
+              <span class="q-option">100 metres</span>
+              <span class="q-option">250 metres</span>
+              <span class="q-option">500 metres</span>
+              <span class="q-option">Flexible</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">What should happen if GPS is unavailable or permission is denied?
+            <div class="q-options">
+              <span class="q-option">Block attendance</span>
+              <span class="q-option">Allow with manager approval</span>
+              <span class="q-option">Allow with manual reason</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Who approves attendance exceptions when GPS fails?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should field attendance connect to:
+            <div class="q-options">
+              <span class="q-option">Project costing</span>
+              <span class="q-option">Timesheets</span>
+              <span class="q-option">Service tickets</span>
+              <span class="q-option">Payroll</span>
+              <span class="q-option">Travel reimbursement</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should the system try to detect and block mock/fake GPS if technically possible?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CRM & SALES -->
+  <div class="section" id="s4">
+    <div class="section-header" onclick="toggle('s4')">
+      <div class="section-icon c-blue">📊</div>
+      <div>
+        <div class="section-title">CRM & Sales</div>
+        <div class="section-sub">Leads, opportunities, quotations, follow-ups, client communication</div>
+      </div>
+      <div class="q-count cnt-blue">9 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Leads & Opportunities</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need lead management — tracking potential clients before they become customers?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Where do leads come from currently?
+            <div class="q-options">
+              <span class="q-option">Website</span>
+              <span class="q-option">Phone / email</span>
+              <span class="q-option">Referral</span>
+              <span class="q-option">Existing customers</span>
+              <span class="q-option">Exhibitions / events</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need follow-up reminders — alerts when a lead hasn't been contacted in X days?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need full communication history per client — emails, calls, meetings logged?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Quotations</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Who prepares quotations currently, and who approves them before sending?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need quotation templates for different service types — automation, IIoT, design etc.?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need revision tracking — ability to see version 1, version 2 of the same quotation?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Does a confirmed PO from client automatically trigger project creation?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Is GST charged on all client invoices, and at what rate for their services?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: PROJECTS -->
+  <div class="section" id="s5">
+    <div class="section-header" onclick="toggle('s5')">
+      <div class="section-icon c-green">🔧</div>
+      <div>
+        <div class="section-title">Projects & Job Tracking</div>
+        <div class="section-sub">Project lifecycle, task assignment, timesheets, costing, milestones</div>
+      </div>
+      <div class="q-count cnt-green">11 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Project Setup</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What project types should be tracked?
+            <div class="q-options">
+              <span class="q-option">Automation</span>
+              <span class="q-option">Robotics</span>
+              <span class="q-option">IIoT / IT</span>
+              <span class="q-option">Cybersecurity</span>
+              <span class="q-option">Energy solutions</span>
+              <span class="q-option">Engineering design</span>
+              <span class="q-option">Panel shop</span>
+              <span class="q-option">Commissioning</span>
+              <span class="q-option">Field service</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What stages does a typical project go through?
+            <div class="q-options">
+              <span class="q-option">Requirement gathering</span>
+              <span class="q-option">Design</span>
+              <span class="q-option">Procurement</span>
+              <span class="q-option">Manufacturing</span>
+              <span class="q-option">FAT</span>
+              <span class="q-option">Dispatch</span>
+              <span class="q-option">Installation</span>
+              <span class="q-option">Commissioning</span>
+              <span class="q-option">Handover</span>
+              <span class="q-option">Support</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Are engineers assigned to one project at a time or split across multiple simultaneously?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">How many active projects run at the same time typically?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Tracking & Costing</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do engineers need to log hours against specific projects — timesheets?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need project costing — comparing budgeted cost vs actual cost per project?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they bill clients on fixed price or time-and-material basis?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">How are invoices raised — at project milestones, monthly, or on completion?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need milestone tracking with alerts when a deadline is approaching?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Do they need document storage per project — drawings, FAT reports, commissioning reports?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Does management want a project profitability report — revenue minus manpower and material cost?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: SERVICE TICKETS -->
+  <div class="section" id="s6">
+    <div class="section-header" onclick="toggle('s6')">
+      <div class="section-icon c-red">🎫</div>
+      <div>
+        <div class="section-title">Service Tickets & Field Service</div>
+        <div class="section-sub">Customer complaints, engineer assignment, resolution tracking, site visits</div>
+      </div>
+      <div class="q-count cnt-red">8 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Ticket Creation & Flow</div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Do customers raise service requests after project completion?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Who creates the ticket currently?
+            <div class="q-options">
+              <span class="q-option">Customer calls / emails</span>
+              <span class="q-option">Internal team logs it</span>
+              <span class="q-option">Customer portal</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">What fields are needed on a ticket — customer, site, machine, issue type, priority, assigned engineer, visit date, status, resolution?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Do engineers need to update service tickets from their mobile while on site?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Do service tickets need customer sign-off before they are marked resolved?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Should a PDF service report be auto-generated after ticket resolution?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Should photos or attachments be uploadable from mobile on a ticket?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-red"></div>
+          <div class="q-text">Should service visit logs be separate from regular attendance — tracked as a distinct event?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: PURCHASE & INVENTORY -->
+  <div class="section" id="s7">
+    <div class="section-header" onclick="toggle('s7')">
+      <div class="section-icon c-purple">📦</div>
+      <div>
+        <div class="section-title">Purchase, Inventory & Manufacturing</div>
+        <div class="section-sub">Vendor management, stock, panel shop work orders, BOM</div>
+      </div>
+      <div class="q-count cnt-purple">12 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Purchase & Vendors</div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need a vendor master — list of approved suppliers with contact and payment terms?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Who approves purchase requests — what is the approval chain?
+            <div class="q-options">
+              <span class="q-option">Requester</span>
+              <span class="q-option">Department head</span>
+              <span class="q-option">Management</span>
+              <span class="q-option">Purchase team</span>
+              <span class="q-option">Accounts</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need GRN — material receipt entry when goods arrive?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need vendor payment tracking — what is due, what is paid?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Inventory / Stores</div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they maintain physical inventory — automation parts, PLCs, panels, cables, sensors, drives, spares?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need serial number or batch tracking for components?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need project-wise material issue — which materials were used for which project?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need minimum stock alerts — notify when something drops below reorder level?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they have multiple store locations or just one?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Panel Shop / Manufacturing</div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they build control panels in-house — does the panel shop need work order tracking?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need BOM — bill of materials per panel or machine?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Do they need FAT checklist templates — factory acceptance test checklists inside the ERP?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: FINANCE & ACCOUNTS -->
+  <div class="section" id="s8">
+    <div class="section-header" onclick="toggle('s8')">
+      <div class="section-icon c-green">💰</div>
+      <div>
+        <div class="section-title">Finance & Accounts</div>
+        <div class="section-sub">Tally migration or integration, invoicing, GST, expense tracking, payroll</div>
+      </div>
+      <div class="q-count cnt-green">10 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="context-banner">
+        <strong>Key decision:</strong> Will accounting stay in Tally or move into ERPNext? This one answer changes the scope significantly. Keeping Tally for now is perfectly fine — ERPNext handles HR and projects, Tally handles books.
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Accounting Decision</div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text"><strong>Will accounting remain in Tally or move into ERPNext?</strong> If Tally remains, is a data integration between the two needed?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Who approves invoices and expense claims currently?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What salary components are in a typical payslip — Basic, HRA, TA, Special Allowance, others?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Is PF deducted for all employees, or only those who opted in?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What is the PF establishment code / ESIC number?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Is ESI applicable — is the employee count or salary threshold met?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Which state Professional Tax slab applies?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Is TDS deducted from any employee salaries currently?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">What date is salary paid every month?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-green"></div>
+          <div class="q-text">Which financial reports does management review monthly — P&L, outstanding, project cost summary?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9: DOCUMENT MANAGEMENT -->
+  <div class="section" id="s9">
+    <div class="section-header" onclick="toggle('s9')">
+      <div class="section-icon c-amber">🗂</div>
+      <div>
+        <div class="section-title">Document Management</div>
+        <div class="section-sub">Licenses, certifications, technical drawings, version control, access restrictions</div>
+      </div>
+      <div class="q-count cnt-amber">8 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">What Gets Stored</div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">What documents should be stored in the ERP?
+            <div class="q-options">
+              <span class="q-option">Customer POs</span>
+              <span class="q-option">Quotations</span>
+              <span class="q-option">Technical drawings</span>
+              <span class="q-option">CAD files</span>
+              <span class="q-option">FAT reports</span>
+              <span class="q-option">Commissioning reports</span>
+              <span class="q-option">Service reports</span>
+              <span class="q-option">Employee documents</span>
+              <span class="q-option">Software licenses</span>
+              <span class="q-option">ISO certificates</span>
+              <span class="q-option">Vendor documents</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Do software licenses and certifications need expiry date tracking with renewal alerts?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Do they need version control — keeping old versions when a document is updated?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Should document access be restricted by project or customer — engineer A cannot see project B documents?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Approximate current document storage size to migrate?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Expected monthly new document upload volume?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Where are documents stored currently — local drives, Google Drive, email, physical files?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-amber"></div>
+          <div class="q-text">Does the iLeadingEdge learning platform need to be linked or accessible from within the ERP employee portal?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10: AWS & INFRASTRUCTURE -->
+  <div class="section" id="s10">
+    <div class="section-header" onclick="toggle('s10')">
+      <div class="section-icon c-blue">☁️</div>
+      <div>
+        <div class="section-title">AWS Deployment & Infrastructure</div>
+        <div class="section-sub">Hosting, backups, security, domain, disaster recovery</div>
+      </div>
+      <div class="q-count cnt-blue">13 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="q-group">
+        <div class="q-group-title">Hosting Basics</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Preferred AWS region — Mumbai (ap-south-1) is closest for India?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Domain name to use — is erp.dvstechnosoft.com acceptable?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Who controls the domain DNS — who can add subdomains?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Should the ERP be accessible on the public internet or only inside office / VPN?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Expected concurrent users — how many people online at the same time during peak hours?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Backup & Recovery</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">How often should backups run?
+            <div class="q-options">
+              <span class="q-option">Daily</span>
+              <span class="q-option">Twice daily</span>
+              <span class="q-option">Hourly</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">How long should backups be kept?
+            <div class="q-options">
+              <span class="q-option">7 days</span>
+              <span class="q-option">15 days</span>
+              <span class="q-option">30 days</span>
+              <span class="q-option">Longer</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">If the server goes down, what is the acceptable recovery time — 1 hour, half a day, next day?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Who should receive backup and server monitoring alerts — email or WhatsApp?</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">Security & Access</div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Who should have server admin access — only the implementer, or someone from DVS too?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Is MFA required for admin logins?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need audit logs — a record of who changed what and when in the ERP?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-blue"></div>
+          <div class="q-text">Do they need data export restrictions — preventing employees from downloading bulk data?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 11: DATA MIGRATION -->
+  <div class="section" id="s11">
+    <div class="section-header" onclick="toggle('s11')">
+      <div class="section-icon c-purple">🔄</div>
+      <div>
+        <div class="section-title">Data Migration</div>
+        <div class="section-sub">What existing data comes into ERPNext, from where, and who cleans it</div>
+      </div>
+      <div class="q-count cnt-purple">6 Q</div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="context-banner">
+        <strong>Note:</strong> Historical data from 9 years does NOT need to be migrated. Only current active records need to come in — employees, clients, open projects, current inventory, and financial opening balances if accounts move to ERPNext.
+      </div>
+      <div class="q-group">
+        <div class="q-group-title">What to Migrate</div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Which data sets need to be imported on go-live?
+            <div class="q-options">
+              <span class="q-option">Employees</span>
+              <span class="q-option">Customers</span>
+              <span class="q-option">Vendors</span>
+              <span class="q-option">Active projects</span>
+              <span class="q-option">Open service tickets</span>
+              <span class="q-option">Inventory stock</span>
+              <span class="q-option">Leave balances</span>
+              <span class="q-option">Documents</span>
+              <span class="q-option">Financial opening balances</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">What format is the existing data in?
+            <div class="q-options">
+              <span class="q-option">Excel</span>
+              <span class="q-option">Tally export</span>
+              <span class="q-option">Paper / manual entry needed</span>
+              <span class="q-option">Existing software export</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Who from DVS will clean and verify the data before import — this is important, data quality is the implementer's biggest headache?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">Is historical data needed in ERPNext, or is keeping old records in Tally/Excel as an archive acceptable?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">For items / materials — is the current item master in Tally or Excel, and how many line items roughly?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-dot qdot-purple"></div>
+          <div class="q-text">For inventory — what is the current stock count process, and is it accurate enough to migrate?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 12: PHASE 1 PRIORITY TABLE -->
+  <div class="phase-divider" style="margin-top:40px">
+    <div class="phase-dot-d dot-amber"></div>
+    <div class="phase-label-d">Section 12 — Phase 1 Prioritisation</div>
+    <div class="phase-line-d"></div>
+  </div>
+
+  <div class="section open" id="s12">
+    <div class="section-header" onclick="toggle('s12')">
+      <div class="section-icon c-amber">🎯</div>
+      <div>
+        <div class="section-title">Module Priority Table</div>
+        <div class="section-sub">Decide together — Phase 1, Later, or Not Required for each module</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="context-banner">
+        Click the boxes to mark each module. Green = Phase 1, Amber = Later, Red = Not Required.
+      </div>
+      <table class="priority-table">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Phase 1</th>
+            <th>Later</th>
+            <th>Not Required</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="priority-tbody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 13: DECISIONS TO CAPTURE -->
+  <div class="phase-divider" style="margin-top:40px">
+    <div class="phase-dot-d dot-red"></div>
+    <div class="phase-label-d">Section 13 — Decisions to Capture in Meeting</div>
+    <div class="phase-line-d"></div>
+  </div>
+
+  <div class="section open" id="s13">
+    <div class="section-header" onclick="toggle('s13')">
+      <div class="section-icon c-red">✅</div>
+      <div>
+        <div class="section-title">Must-Decide Before Leaving the Room</div>
+        <div class="section-sub">These 9 decisions unblock everything else</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="section-body">
+      <div class="decision-list">
+        <div class="decision-item">
+          <div class="decision-num">1</div>
+          <div class="decision-text">Phase 1 modules confirmed — what is in, what is later</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">2</div>
+          <div class="decision-text">Mobile app approach — native app or PWA / mobile web for Phase 1</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">3</div>
+          <div class="decision-text">GPS attendance rules — check-in only, geofencing yes/no, exception handling</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">4</div>
+          <div class="decision-text">Will accounting stay in Tally or move into ERPNext</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">5</div>
+          <div class="decision-text">AWS architecture — EC2 size, database on EC2 vs RDS, S3 for documents</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">6</div>
+          <div class="decision-text">Domain and subdomain confirmed — erp.dvstechnosoft.com or other</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">7</div>
+          <div class="decision-text">Backup policy — frequency and retention period agreed</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">8</div>
+          <div class="decision-text">Data migration scope — what comes in, what stays in Tally/Excel</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-num">9</div>
+          <div class="decision-text">DVS point of contact confirmed — who approves decisions week to week</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>DVS Technosoft · ERP Requirements · Discovery Phase · Jun 2026</p>
+    <div class="note">Click any section to expand ↓</div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  const modules = [
+    'Employee master',
+    'Attendance',
+    'Mobile GPS attendance',
+    'Leave management',
+    'Payroll',
+    'CRM / leads',
+    'Quotations',
+    'Projects / jobs',
+    'Service tickets',
+    'Purchase',
+    'Inventory',
+    'Manufacturing / panel shop',
+    'Finance / invoicing',
+    'Document management',
+    'Dashboards / reports',
+    'iLeadingEdge portal link',
+    'Customer portal',
+    'Vendor portal',
+    'Tally integration',
+  ];
+
+  const state = {};
+  modules.forEach(m => state[m] = null);
+
+  function markPriority(mod, val) {
+    state[mod] = val;
+    renderTable();
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('priority-tbody');
+    tbody.innerHTML = modules.map(m => {
+      const s = state[m];
+      return `<tr>
+        <td class="module-name">${m}</td>
+        <td><div class="p-box ${s==='ph1'?'ph1':''}" onclick="markPriority('${m}','ph1')">Phase 1</div></td>
+        <td><div class="p-box ${s==='later'?'later':''}" onclick="markPriority('${m}','later')">Later</div></td>
+        <td><div class="p-box ${s==='no'?'no':''}" onclick="markPriority('${m}','no')">No</div></td>
+        <td class="notes-field">—</td>
+      </tr>`;
+    }).join('');
+  }
+
+  renderTable();
+</script>
+</body>
+</html>
